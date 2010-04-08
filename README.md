@@ -12,15 +12,14 @@ A node.js library for logging to multiple files
  * Emits events for most events
 
 ## Example (Taken from example.js)
-
     var
       sys = require('sys'),
       path = require('path'),
       http = require('http'),
       streamLogger = require('./lib/streamlogger'),
-      logger = new streamLogger.StreamLogger('log1.txt','log2.txt');
+      logger = new streamLogger.StreamLogger('log1.log','log2.log');
        
-    logger.level = streamLogger.levels.info; //Defaults to info  
+    logger.level = logger.levels.info; //Defaults to info  
     logger.emitter
       .addListener('open', function() {
         sys.puts("All streams are open");
@@ -37,8 +36,15 @@ A node.js library for logging to multiple files
       })
       .addListener('close', function() {
         sys.puts("All loggers closed");
+      })
+      //Alternate style
+      .addListener('message-info', function(message) {
+        sys.puts("OnlyInfo");
+      })
+      .addListener('loggedMessage-info', function(message) {
+        sys.puts("Logged OnlyInfo");
       });
-
+      
     //If you want to rotate logs, this will re-open the files on sighup
     process.addListener("SIGHUP", function() {
       logger.reopen();  
@@ -53,4 +59,30 @@ A node.js library for logging to multiple files
       res.writeHead(200);
       res.write("Hello!");
       res.close();
+
+      //Setting a custom format, note that since this is an async lib
+      //setting the format here WILL affect messages outputted prior during this
+      //tick, and possibly the next
+      logger.format = function(message,levelName) {
+        if (levelName == 'warn')
+          return "Custom message: " + message;
+        else
+          return false; //Use the default format
+      }
+      logger.warn("Should be custom");
+      logger.info("Should be standard");
+
+      //Setting custom log levels, note that since this is async lib this can
+      //can cause problems with calls sent earlier in this tick, if you delete
+      // an existing log level
+      var levels = logger.levels;
+      levels.extraFatal = levels.fatal + 1;
+      //This will not work, as emitter is an existing property of the logger
+      //Trying to set this will cause logger to emit an 'error'
+      levels.emitter = 20; 
+      logger.levels = levels;
+      logger.extraFatal("I've been shot through the heart!");
     }).listen(8000);
+
+## Copyright
+  Copyright Andrew Cholakian, released under the MIT License (see LICENSE)
