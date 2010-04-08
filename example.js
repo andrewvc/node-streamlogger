@@ -5,7 +5,7 @@ var
   streamLogger = require('./lib/streamlogger'),
   logger = new streamLogger.StreamLogger('log1.txt','log2.txt');
    
-logger.level = streamLogger.levels.info; //Defaults to info  
+logger.level = logger.levels.info; //Defaults to info  
 logger.emitter
   .addListener('open', function() {
     sys.puts("All streams are open");
@@ -38,4 +38,11 @@ http.createServer(function(req, res) {
   res.writeHead(200);
   res.write("Hello!");
   res.close();
+
+  var levels = logger.levels;
+  levels.extraFatal = levels.fatal + 1;
+  levels.open = 20;
+  logger.levels = levels;
+  logger.extraFatal("I've been shot through the heart!");
+  sys.log(sys.inspect(logger.levels));
 }).listen(8000);
