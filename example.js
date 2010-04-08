@@ -38,7 +38,4 @@ http.createServer(function(req, res) {
   res.writeHead(200);
   res.write("Hello!");
   res.close();
-  
-  //After this you won't be able to log any messages, you likely NEVER
-  //want to use this
 }).listen(8000);
