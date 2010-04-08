@@ -41,7 +41,9 @@ http.createServer(function(req, res) {
 
   var levels = logger.levels;
   levels.extraFatal = levels.fatal + 1;
-  levels.open = 20;
+  //This will not work, as emitter is an existing property of the logger
+  //Trying to set this will cause logger to emit an 'error'
+  levels.emitter = 20; 
   logger.levels = levels;
   logger.extraFatal("I've been shot through the heart!");
 }).listen(8000);
