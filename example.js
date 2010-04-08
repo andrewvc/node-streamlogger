@@ -3,7 +3,7 @@ var
   path = require('path'),
   http = require('http'),
   streamLogger = require('./lib/streamlogger'),
-  logger = new streamLogger.StreamLogger('log1.txt','log2.txt');
+  logger = new streamLogger.StreamLogger('log1.log','log2.log');
    
 logger.level = logger.levels.info; //Defaults to info  
 logger.emitter
@@ -44,5 +44,4 @@ http.createServer(function(req, res) {
   levels.open = 20;
   logger.levels = levels;
   logger.extraFatal("I've been shot through the heart!");
-  sys.log(sys.inspect(logger.levels));
 }).listen(8000);
