@@ -8,7 +8,7 @@ var
 logger.level = streamLogger.levels.info; //Defaults to info  
 logger.emitter
   .addListener('open', function() {
-    sys.puts("All streams are open")
+    sys.puts("All streams are open");
   })
   .addListener('error', function(err,logPath) {
     sys.puts("Error: " + err + " while writing to " + logPath);
@@ -23,7 +23,6 @@ logger.emitter
   .addListener('close', function() {
     sys.puts("All loggers closed");
   });
- 
 
 //If you want to rotate logs, this will re-open the files on sighup
 process.addListener("SIGHUP", function() {

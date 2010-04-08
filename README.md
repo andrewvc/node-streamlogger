@@ -23,7 +23,7 @@ A node.js library for logging to multiple files
     logger.level = streamLogger.levels.info; //Defaults to info  
     logger.emitter
       .addListener('open', function() {
-        sys.puts("All streams are open")
+        sys.puts("All streams are open");
       })
       .addListener('error', function(err,logPath) {
         sys.puts("Error: " + err + " while writing to " + logPath);
