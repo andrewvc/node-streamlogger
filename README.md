@@ -6,10 +6,12 @@ A node.js library for logging to multiple files
 
 ## Features
 
- * Supports multiple severity levels (debug, info, warn, fatal)
- * Supports writing to multiple files simultaneously
- * Supports log rotation (reopening log files on demand)
- * Emits events for most events
+ * Multiple severity levels (debug, info, warn, fatal) by default
+ * Arbitrary user definable severity levels
+ * Almost all events are listenable
+ * Writing to multiple files simultaneously
+ * Log rotation (reopening log files on demand)
+ * Custom output formats
 
 ## Example (Taken from example.js)
     var
