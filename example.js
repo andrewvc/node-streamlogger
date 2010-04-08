@@ -23,7 +23,14 @@ logger.emitter
   .addListener('close', function() {
     sys.puts("All loggers closed");
   });
-
+  //Alternate style
+  .addListener('messageInfo'), function(message) {
+    sys.puts("OnlyInfo");
+  }
+  .addListener('loggedMessageInfo'), function(message) {
+    sys.puts("Logged OnlyInfo");
+  }
+  
 //If you want to rotate logs, this will re-open the files on sighup
 process.addListener("SIGHUP", function() {
   logger.reopen();  
