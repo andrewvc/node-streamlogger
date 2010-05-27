@@ -44,7 +44,7 @@ http.createServer(function(req, res) {
    
   res.writeHead(200);
   res.write("Hello!");
-  res.close();
+  res.end();
 
   //Setting a custom format, note that since this is an async lib
   //setting the format here WILL affect messages outputted prior during this
