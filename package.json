@@ -4,5 +4,5 @@
   "version": "0.0.1",
   "author": "Andrew Cholakian <andrew@andrewvc.com>",
   "main": "./lib/streamlogger.js",
-  "engines": { "node": ">= 0.2.1" },
+  "engines": { "node": ">= 0.2.1" }
 }
